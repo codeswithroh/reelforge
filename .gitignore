@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+
+# PyInstaller
+*.spec
+
+# Anna
+*.tar.gz
+*.sha256
+
+# Node
+node_modules/
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Local state
+~/.anna/reelforge/
+
+# Logs
+*.log

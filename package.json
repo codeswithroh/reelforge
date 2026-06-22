@@ -1,0 +1,36 @@
+{
+  "name": "reelforge-anna-app",
+  "version": "1.0.0",
+  "description": "ReelForge - AI-native video editing workspace for Anna",
+  "private": true,
+  "scripts": {
+    "dev": "anna-app dev",
+    "dev:no-llm": "anna-app dev --no-llm",
+    "validate": "anna-app validate --strict",
+    "build:tool": "cd executas/reelforge-director && ./package_binary.sh",
+    "push:app": "anna-app apps push",
+    "submit:review": "anna-app apps submit-review",
+    "status": "anna-app apps status",
+    "versions": "anna-app apps versions",
+    "publish": "anna-app apps publish",
+    "bundle:zip": "cd bundle && zip -r ../reelforge-bundle.zip index.html style.css app.js icon.svg",
+    "test": "anna-app validate --strict && echo 'All checks passed'"
+  },
+  "devDependencies": {
+    "@anna-ai/cli": "^0.1.30"
+  },
+  "keywords": [
+    "anna-app",
+    "ai",
+    "video-editing",
+    "creative-tools",
+    "productivity"
+  ],
+  "author": "rohitpurkait001_6943",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codeswithroh/reelforge.git"
+  },
+  "homepage": "https://github.com/codeswithroh/reelforge#readme"
+}

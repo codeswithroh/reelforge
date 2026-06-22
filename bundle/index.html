@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReelForge</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <header class="app-header">
+    <div class="logo">
+      <svg class="logo-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+      <span class="logo-text">ReelForge</span>
+    </div>
+    <div class="header-actions">
+      <button id="btn-help" class="btn-ghost" title="How it works">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+      </button>
+      <button id="btn-reset" class="btn-secondary" title="New project">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 12"></path><path d="M3 3v9h9"></path></svg>
+        <span>New</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <!-- Screen: Upload / Start -->
+    <section id="screen-start" class="screen active">
+      <div class="start-card">
+        <div class="start-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="4" ry="4"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+        </div>
+        <h1>Start a project</h1>
+        <p class="subtitle">Describe your footage or paste a transcript. The AI director will analyze it and propose clips.</p>
+        <div class="field-group">
+          <label for="video-desc">Footage description</label>
+          <textarea id="video-desc" rows="6" placeholder="Paste a transcript or describe your footage. Example: A 10-minute interview with a founder about their startup journey, covering early challenges, product pivots, and a key customer win..."></textarea>
+        </div>
+        <div class="field-group">
+          <label for="video-duration">Total duration (optional)</label>
+          <input type="text" id="video-duration" placeholder="10:00">
+          <span class="helper">Format: mm:ss or hh:mm:ss</span>
+        </div>
+        <button id="btn-analyze" class="btn-primary btn-large">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          <span>Analyze footage</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Screen: Goal -->
+    <section id="screen-goal" class="screen">
+      <div class="narrow-card">
+        <div class="step-badge">Step 2 of 4</div>
+        <h2>Set your creative goal</h2>
+        <p class="subtitle">What do you want to make from this footage?</p>
+        <div class="field-group">
+          <label for="goal-input">Creative goal</label>
+          <input type="text" id="goal-input" placeholder="e.g. 30-second hook for LinkedIn, 3 testimonial variants, highlight reel">
+        </div>
+        <div class="preset-goals">
+          <span class="preset-label">Quick picks:</span>
+          <button class="preset-chip" data-goal="30-second hook">30-second hook</button>
+          <button class="preset-chip" data-goal="3 testimonial variants">3 testimonial variants</button>
+          <button class="preset-chip" data-goal="60-second highlight reel">60-second highlight reel</button>
+          <button class="preset-chip" data-goal="Short social clip">Short social clip</button>
+        </div>
+        <div class="form-actions">
+          <button id="btn-back-start" class="btn-secondary">Back</button>
+          <button id="btn-propose" class="btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+            <span>Propose clips</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screen: Storyboard -->
+    <section id="screen-storyboard" class="screen">
+      <div class="storyboard-header">
+        <div>
+          <div class="step-badge">Step 3 of 4</div>
+          <h2>Storyboard</h2>
+          <p class="subtitle" id="storyboard-subtitle">Review proposed clips. Approve the ones you want. Reject the rest.</p>
+        </div>
+        <div class="storyboard-stats">
+          <div class="stat">
+            <span class="stat-value" id="stat-approved">0</span>
+            <span class="stat-label">Approved</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value" id="stat-rejected">0</span>
+            <span class="stat-label">Rejected</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value" id="stat-pending">0</span>
+            <span class="stat-label">Pending</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="clips-grid" class="clips-grid"></div>
+
+      <div class="timeline-bar">
+        <div class="timeline-label">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span>Timeline</span>
+          <span class="timeline-duration" id="timeline-duration">0s</span>
+        </div>
+        <div class="timeline-track" id="timeline-track"></div>
+      </div>
+
+      <div class="storyboard-actions">
+        <button id="btn-back-goal" class="btn-secondary">Back</button>
+        <button id="btn-assemble" class="btn-primary" disabled>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="8" y1="12" x2="16" y2="12"></line><line x1="12" y1="8" x2="12" y2="16"></line></svg>
+          <span>Assemble final cut</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Screen: Export -->
+    <section id="screen-export" class="screen">
+      <div class="narrow-card">
+        <div class="step-badge">Step 4 of 4</div>
+        <h2>Final cut assembled</h2>
+        <p class="subtitle" id="export-subtitle">Your approved clips have been sequenced into a final cut.</p>
+
+        <div class="export-summary" id="export-summary"></div>
+
+        <div class="export-settings">
+          <h3>Export settings</h3>
+          <div class="field-row">
+            <div class="field-group">
+              <label for="export-format">Format</label>
+              <select id="export-format">
+                <option value="mp4">MP4 (H.264)</option>
+                <option value="mov">MOV (ProRes)</option>
+                <option value="webm">WebM</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="export-quality">Quality</label>
+              <select id="export-quality">
+                <option value="1080p">1080p</option>
+                <option value="4k">4K</option>
+                <option value="720p">720p</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="export-actions">
+          <button id="btn-back-storyboard" class="btn-secondary">Back to storyboard</button>
+          <button id="btn-export" class="btn-primary btn-large">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <span>Export project</span>
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast-container"></div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

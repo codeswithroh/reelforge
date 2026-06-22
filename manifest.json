@@ -1,0 +1,29 @@
+{
+  "schema": 2,
+  "permissions": ["tools.invoke", "chat.write_message", "storage.read", "storage.write", "ui.svg"],
+  "required_executas": [
+    { "tool_id": "tool-rohitpurkait001_6943-reelforge-director-wgc7rgz5", "min_version": "1.0.0" },
+    { "tool_id": "skill-rohitpurkait001_6943-reelforge-director-tedkw6x8" }
+  ],
+  "optional_executas": [],
+  "ui": {
+    "bundle": { "format": "static-spa", "entry": "index.html" },
+    "views": [
+      {
+        "name": "main",
+        "title": "ReelForge",
+        "default": true,
+        "min_size": { "w": 720, "h": 560 },
+        "default_size": { "w": 960, "h": 720 },
+        "max_size": { "w": 1440, "h": 1080 },
+        "icon": "icon.svg"
+      }
+    ],
+    "host_api": {
+      "tools": ["required:tool-rohitpurkait001_6943-reelforge-director-wgc7rgz5"],
+      "chat": ["write_message"],
+      "storage": ["get", "set", "delete"],
+      "window": ["set_title", "resize", "focus"]
+    }
+  }
+}

@@ -1,0 +1,16 @@
+[buildsystem]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "tool-rohitpurkait001_6943-reelforge-director-wgc7rgz5"
+version = "1.0.0"
+description = "ReelForge AI video director plugin"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+tool-rohitpurkait001_6943-reelforge-director-wgc7rgz5 = "reelforge_director:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["."]
